@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
@@ -27,6 +27,14 @@
     .site-header { text-align: center; padding: 32px 0 16px; }
     .site-header h1 { font-family: var(--font-heading); color: var(--primary); margin-bottom: 4px; }
     .site-header p { color: var(--secondary); font-size: 0.95rem; }
+    .site-header a {
+      color: var(--accent);
+      font-weight: bold;
+      text-decoration: none;
+    }
+    .site-header a:hover {
+      text-decoration: underline;
+    }
     main { max-width: 900px; margin: 0 auto; display: grid; gap: 24px; }
     .order-card {
       background: #fff;
@@ -49,246 +57,58 @@
     .total { font-weight: bold; color: var(--dark); margin-top: 8px; font-size: 1.05rem; }
     .site-footer { margin-top: 40px; text-align: center; font-size: 0.85rem; color: #666; }
     .hidden { display: none; }
-    /* form */
-    form { background: #fff; padding: 16px; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 32px; }
-    form h2 { font-family: var(--font-heading); color: var(--primary); margin-bottom: 12px; }
-    label { display: block; margin-bottom: 8px; font-size: 0.9rem; }
-    input, select { width: 100%; padding: 8px; margin-top: 2px; border-radius: 6px; border: 1px solid #ccc; }
-    button {
-      margin-top: 12px; padding: 10px 18px; border: none; border-radius: 6px;
-      background: var(--secondary); color: #fff; cursor: pointer; font-weight: bold;
-    }
-    button:hover { background: var(--primary); }
-    .product-list { margin: 12px 0; }
-    .product-item { display: flex; gap: 8px; margin-bottom: 8px; }
-    .product-item input { flex: 1; }
-    .remove-btn { background: #c0392b !important; }
-    .add-btn { background: var(--accent) !important; color: var(--dark); }
   </style>
 </head>
 <body>
   <header class="site-header">
     <h1>Online Ordering — Week 04</h1>
     <p>Encapsulation Demo em JavaScript (espelhando seu C#)</p>
+    <p>
+      🔗 <a href="https://github.com/caioprosa10/online-ordering-program" target="_blank">
+        Ver código no GitHub (abrir no VS Code)
+      </a>
+    </p>
   </header>
 
   <main>
-    <!-- Form para criar pedidos dinamicamente (opcional) -->
-    <form id="orderForm">
-      <h2>Criar novo pedido</h2>
-      <label>
-        Nome do Cliente
-        <input type="text" id="custName" placeholder="John Smith" required>
-      </label>
-      <label>
-        Rua
-        <input type="text" id="street" placeholder="123 Main St" required>
-      </label>
-      <label>
-        Cidade
-        <input type="text" id="city" placeholder="Provo" required>
-      </label>
-      <label>
-        Estado/Província
-        <input type="text" id="state" placeholder="UT" required>
-      </label>
-      <label>
-        País
-        <input type="text" id="country" placeholder="USA" required>
-      </label>
+    <section class="order-card">
+      <h2>Pedido 1</h2>
+      <div class="label">
+        <h3>Packing Label</h3>
+        <pre>USB-C Cable (ID: P1001) x5
+Wireless Mouse (ID: P2001) x1
+Notebook Sleeve (ID: P3001) x2</pre>
+      </div>
+      <div class="label">
+        <h3>Shipping Label</h3>
+        <pre>John Smith
+123 Main St
+Provo, UT
+USA</pre>
+      </div>
+      <p class="total">TOTAL: $58.95</p>
+    </section>
 
-      <h3 style="margin:12px 0 8px;">Produtos</h3>
-      <div id="products" class="product-list"></div>
-      <button type="button" class="add-btn" id="addProduct">Adicionar Produto</button>
-      <br>
-      <button type="submit">Gerar Pedido</button>
-    </form>
-
-    <!-- Aqui os pedidos serão inseridos -->
-    <div id="ordersContainer"></div>
+    <section class="order-card">
+      <h2>Pedido 2</h2>
+      <div class="label">
+        <h3>Packing Label</h3>
+        <pre>Mechanical Keyboard (ID: K1000) x1
+HDMI Cable (ID: C2020) x3</pre>
+      </div>
+      <div class="label">
+        <h3>Shipping Label</h3>
+        <pre>Caio Palladino
+Av. Atlântica 456
+Rio de Janeiro, RJ
+Brazil</pre>
+      </div>
+      <p class="total">TOTAL: $135.50</p>
+    </section>
   </main>
 
   <footer class="site-footer">
     <p>© 2025 — Caio Palladino Da Rosa</p>
   </footer>
-
-  <script>
-    // ======== Classes JS que espelham suas classes C# ========
-    class Address {
-      #street; #city; #stateProvince; #country;
-      constructor(street, city, stateProvince, country) {
-        this.#street = street;
-        this.#city = city;
-        this.#stateProvince = stateProvince;
-        this.#country = country;
-      }
-      isInUSA() {
-        const c = this.#country.trim().toUpperCase();
-        return c === "USA" || c === "UNITED STATES";
-      }
-      getFullAddress() {
-        return `${this.#street}\n${this.#city}, ${this.#stateProvince}\n${this.#country}`;
-      }
-    }
-
-    class Customer {
-      #name; #address;
-      constructor(name, address) {
-        this.#name = name;
-        this.#address = address;
-      }
-      livesInUSA() { return this.#address.isInUSA(); }
-      getName() { return this.#name; }
-      getShippingAddress() { return this.#address.getFullAddress(); }
-    }
-
-    class Product {
-      #name; #productId; #pricePerUnit; #quantity;
-      constructor(name, productId, pricePerUnit, quantity) {
-        this.#name = name;
-        this.#productId = productId;
-        this.#pricePerUnit = pricePerUnit;
-        this.#quantity = quantity;
-      }
-      getTotalCost() { return this.#pricePerUnit * this.#quantity; }
-      getPackingLine() { return `${this.#name} (ID: ${this.#productId}) x${this.#quantity}`; }
-    }
-
-    class Order {
-      #products = [];
-      #customer;
-      constructor(customer) {
-        this.#customer = customer;
-      }
-      addProduct(product) { this.#products.push(product); }
-      getTotalPrice() {
-        const subtotal = this.#products.reduce((s, p) => s + p.getTotalCost(), 0);
-        const shipping = this.#customer.livesInUSA() ? 5 : 35;
-        return subtotal + shipping;
-      }
-      getPackingLabel() {
-        let lines = ["=== PACKING LABEL ==="];
-        this.#products.forEach(p => lines.push(p.getPackingLine()));
-        return lines.join("\n");
-      }
-      getShippingLabel() {
-        return `=== SHIPPING LABEL ===\n${this.#customer.getName()}\n${this.#customer.getShippingAddress()}`;
-      }
-    }
-
-    // ======== Renderização ========
-    function renderOrder(order, number) {
-      const container = document.getElementById("ordersContainer");
-
-      const section = document.createElement("section");
-      section.className = "order-card";
-
-      section.innerHTML = `
-        <h2>Order ${number}</h2>
-        <div class="label">
-          <h3>Packing Label</h3>
-          <pre>${escapeHtml(order.getPackingLabel())}</pre>
-        </div>
-        <div class="label">
-          <h3>Shipping Label</h3>
-          <pre>${escapeHtml(order.getShippingLabel())}</pre>
-        </div>
-        <p class="total">TOTAL: $${order.getTotalPrice().toFixed(2)}</p>
-      `;
-
-      container.appendChild(section);
-    }
-
-    function escapeHtml(str) {
-      return str
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/\n/g, "<br>");
-    }
-
-    // ======== Dados iniciais (os mesmos do C#) ========
-    function seedExampleOrders() {
-      const addr1 = new Address("123 Main St", "Provo", "UT", "USA");
-      const cust1 = new Customer("John Smith", addr1);
-      const order1 = new Order(cust1);
-      order1.addProduct(new Product("USB-C Cable", "P1001", 3.99, 5));
-      order1.addProduct(new Product("Wireless Mouse", "P2001", 19.90, 1));
-      order1.addProduct(new Product("Notebook Sleeve", "P3001", 12.50, 2));
-      renderOrder(order1, 1);
-
-      const addr2 = new Address("Av. Atlântica 456", "Rio de Janeiro", "RJ", "Brazil");
-      const cust2 = new Customer("Caio Palladino", addr2);
-      const order2 = new Order(cust2);
-      order2.addProduct(new Product("Mechanical Keyboard", "K1000", 75.00, 1));
-      order2.addProduct(new Product("HDMI Cable", "C2020", 8.50, 3));
-      renderOrder(order2, 2);
-    }
-
-    // ======== Form dinâmico para criar pedidos (opcional) ========
-    (function initForm() {
-      const productsDiv = document.getElementById("products");
-      const addBtn = document.getElementById("addProduct");
-      let productCount = 0;
-
-      function addProductRow() {
-        productCount++;
-        const row = document.createElement("div");
-        row.className = "product-item";
-        row.dataset.id = productCount;
-
-        row.innerHTML = `
-          <input type="text" placeholder="Nome do produto" class="pName" required>
-          <input type="text" placeholder="ID" class="pId" required>
-          <input type="number" placeholder="Preço" step="0.01" class="pPrice" required>
-          <input type="number" placeholder="Qtd" class="pQty" min="1" value="1" required>
-          <button type="button" class="remove-btn">X</button>
-        `;
-
-        row.querySelector(".remove-btn").addEventListener("click", () => {
-          productsDiv.removeChild(row);
-        });
-
-        productsDiv.appendChild(row);
-      }
-
-      addBtn.addEventListener("click", addProductRow);
-      addProductRow(); // começa com 1 linha
-
-      document.getElementById("orderForm").addEventListener("submit", e => {
-        e.preventDefault();
-        const name = document.getElementById("custName").value.trim();
-        const street = document.getElementById("street").value.trim();
-        const city = document.getElementById("city").value.trim();
-        const state = document.getElementById("state").value.trim();
-        const country = document.getElementById("country").value.trim();
-
-        const addr = new Address(street, city, state, country);
-        const cust = new Customer(name, addr);
-        const order = new Order(cust);
-
-        const rows = productsDiv.querySelectorAll(".product-item");
-        rows.forEach(r => {
-          const pName = r.querySelector(".pName").value.trim();
-          const pId = r.querySelector(".pId").value.trim();
-          const pPrice = parseFloat(r.querySelector(".pPrice").value);
-          const pQty = parseInt(r.querySelector(".pQty").value);
-          order.addProduct(new Product(pName, pId, pPrice, pQty));
-        });
-
-        // descobre quantos já existem na tela para numerar novo pedido
-        const currentCount = document.querySelectorAll(".order-card").length;
-        renderOrder(order, currentCount + 1);
-
-        // limpa o form
-        e.target.reset();
-        productsDiv.innerHTML = "";
-        addProductRow();
-      });
-    })();
-
-    // Cria os pedidos de exemplo ao carregar
-    seedExampleOrders();
-  </script>
 </body>
 </html>
