@@ -1,0 +1,167 @@
+:root {
+  --primary: #1e3a5f;
+  --secondary: #3b8ea5;
+  --light: #f5f7fa;
+  --dark: #222;
+  --accent: #f2c14e;
+  --radius: 10px;
+  --shadow: 0 4px 10px rgba(0,0,0,.08);
+  --font-body: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --font-heading: 'Montserrat', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--light);
+  color: var(--dark);
+  line-height: 1.6;
+  padding: 0 16px 32px;
+}
+
+.site-header {
+  text-align: center;
+  padding: 32px 0 16px;
+}
+
+.site-header h1 {
+  font-family: var(--font-heading);
+  color: var(--primary);
+  margin-bottom: 4px;
+}
+
+.site-header p {
+  color: var(--secondary);
+  font-size: 0.95rem;
+}
+
+main {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  gap: 24px;
+}
+
+.order-card {
+  background: #fff;
+  padding: 24px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border-left: 6px solid var(--accent);
+}
+
+.order-card h2 {
+  font-family: var(--font-heading);
+  color: var(--primary);
+  margin-bottom: 16px;
+}
+
+.label {
+  margin-bottom: 16px;
+}
+
+.label h3 {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  color: var(--secondary);
+  margin-bottom: 4px;
+}
+
+pre {
+  background: #f0f0f0;
+  padding: 12px;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.total {
+  font-weight: bold;
+  color: var(--dark);
+  margin-top: 8px;
+  font-size: 1.05rem;
+}
+
+.site-footer {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+/* ------ (Opcional) Estilos do formulário dinâmico ------ */
+form {
+  background: #fff;
+  padding: 16px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 32px;
+}
+
+form h2 {
+  font-family: var(--font-heading);
+  color: var(--primary);
+  margin-bottom: 12px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+input, select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 2px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+button {
+  margin-top: 12px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  background: var(--secondary);
+  color: #fff;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  background: var(--primary);
+}
+
+.product-list {
+  margin: 12px 0;
+}
+
+.product-item {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.product-item input {
+  flex: 1;
+}
+
+.remove-btn {
+  background: #c0392b !important;
+}
+
+.add-btn {
+  background: var(--accent) !important;
+  color: var(--dark);
+}
+
+.hidden {
+  display: none;
+}
